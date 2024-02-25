@@ -33,6 +33,8 @@ type Items = {
   link: string;
 };
 const SideNav = ({ user }: { user: UserType | null }) => {
+  const [openNav, setOpenNav] = useState(false);
+
   if (!user) return redirect("/");
   const items: Items[] = [
     {
@@ -51,8 +53,6 @@ const SideNav = ({ user }: { user: UserType | null }) => {
       link: `/admin/${user.id}/users`,
     },
   ];
-
-  const [openNav, setOpenNav] = useState(false);
 
   const toggleCollapse = () => {
     if (openNav) setOpenNav(false);
