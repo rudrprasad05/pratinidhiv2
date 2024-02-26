@@ -1,6 +1,6 @@
 "use client";
 
-import { FullPostType } from "@/types";
+import { FullPostType, GetEventsPostsWithCommentsAndAuthor } from "@/types";
 import { useSession } from "next-auth/react";
 import React, { useEffect, useState } from "react";
 
@@ -13,19 +13,19 @@ import { FileWarning } from "lucide-react";
 import PostSection from "./PostSection";
 
 interface props {
-  data: FullPostType;
+  data: GetEventsPostsWithCommentsAndAuthor;
 }
 
-const checkDisable = (
-  data: FullPostType,
-  user: any,
-  setDisableCommentSubmit: any
-) => {
-  data.comments?.map((commentData) => {
-    if (user?.id == commentData.userId && !commentData.isModerated)
-      setDisableCommentSubmit(true);
-  });
-};
+// const checkDisable = (
+//   data: GetEventsPostsWithCommentsAndAuthor,
+//   user: any,
+//   setDisableCommentSubmit: any
+// ) => {
+//   data.comments?.map((commentData) => {
+//     if (user?.id == commentData.userId && !commentData.isModerated)
+//       setDisableCommentSubmit(true);
+//   });
+// };
 
 const PostPage: React.FC<props> = ({ data }) => {
   const [disableCommentSubmit, setDisableCommentSubmit] = useState(false);
