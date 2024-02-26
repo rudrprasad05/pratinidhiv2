@@ -5,7 +5,7 @@ import { GetUserOnly } from "@/actions/user";
 const SideNavServerCont = async () => {
   const user = await GetUserOnly();
   // if (user?.seller == nuclgll) return <RedirectToSellerAuth />;
-  console.log("first");
+
   return <SideNav user={user} />;
 };
 

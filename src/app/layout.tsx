@@ -4,6 +4,7 @@ import "./globals.css";
 import { ThemeProvider } from "@/theme/ThemeProvider";
 import { Toaster } from "sonner";
 import AuthContext from "@/context/AuthContext";
+import DesignerContextProvider from "@/context/DesignerContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,10 +22,12 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <AuthContext>
-          <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
-            <Toaster />
-            <main className="min-h-screen">{children}</main>
-          </ThemeProvider>
+          <DesignerContextProvider>
+            <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
+              <Toaster />
+              <main className="min-h-screen">{children}</main>
+            </ThemeProvider>
+          </DesignerContextProvider>
         </AuthContext>
       </body>
     </html>

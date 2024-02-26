@@ -13,14 +13,23 @@
 //   Message,
 // } from "@prisma/client";
 
-import { User } from "@prisma/client";
+import { Branch, Category, Post, User } from "@prisma/client";
 
 export type PageSearchProps = {
-  params: { [key: string]: string | string[] | undefined };
+  params: { userId?: string; branchId?: string };
   searchParams?: { token?: string };
 };
 
 export type UserType = User;
+
+export type FullPostType = Post & {
+  comments: Comment[];
+  author: User;
+};
+
+export type FullCategoryType = Category;
+
+export type BranchType = Branch;
 
 // export type UserType = User & {
 //   seller: SellerType;
