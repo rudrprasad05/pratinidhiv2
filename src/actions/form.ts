@@ -69,6 +69,10 @@ export async function GetForms() {
     orderBy: {
       createdAt: "desc",
     },
+    include: {
+      comments: true,
+      author: true,
+    },
   });
 }
 

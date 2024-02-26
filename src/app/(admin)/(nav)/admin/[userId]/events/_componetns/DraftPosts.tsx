@@ -3,12 +3,12 @@
 import React, { useEffect, useState } from "react";
 
 import { Input } from "@/components/ui/input";
-import { FullPostType } from "@/types";
+import { FullPostType, GetEventsPostsWithCommentsAndAuthor } from "@/types";
 import { MagnetIcon, Search } from "lucide-react";
 import { FormCard } from "./FormCard";
 
 interface props {
-  data: FullPostType[];
+  data: GetEventsPostsWithCommentsAndAuthor;
 }
 
 const DraftPosts: React.FC<props> = ({ data }) => {

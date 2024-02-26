@@ -13,7 +13,8 @@
 //   Message,
 // } from "@prisma/client";
 
-import { Branch, Category, Post, User } from "@prisma/client";
+import { GetForms } from "@/actions/form";
+import { Branch, Category, Post, Prisma, User } from "@prisma/client";
 
 export type PageSearchProps = {
   params: { userId?: string; branchId?: string };
@@ -30,6 +31,10 @@ export type FullPostType = Post & {
 export type FullCategoryType = Category;
 
 export type BranchType = Branch;
+
+export type GetEventsPostsWithCommentsAndAuthor = Prisma.PromiseReturnType<
+  typeof GetForms
+>;
 
 // export type UserType = User & {
 //   seller: SellerType;

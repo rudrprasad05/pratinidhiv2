@@ -3,11 +3,11 @@
 import { Magnet, Search } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import { FormCard } from "./FormCard";
-import { FullPostType } from "@/types";
+import { FullPostType, GetEventsPostsWithCommentsAndAuthor } from "@/types";
 import { Input } from "@/components/ui/input";
 
 interface props {
-  data: FullPostType[];
+  data: GetEventsPostsWithCommentsAndAuthor;
 }
 
 const PublishedPosts: React.FC<props> = ({ data }) => {
