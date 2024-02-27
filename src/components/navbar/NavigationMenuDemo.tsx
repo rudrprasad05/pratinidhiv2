@@ -39,9 +39,9 @@ export function NavigationMenuDemo() {
         </NavigationMenuItem>
 
         <NavigationMenuItem>
-          <Link href="/post" legacyBehavior passHref>
+          <Link href="/events" legacyBehavior passHref>
             <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-              Posts
+              Events
             </NavigationMenuLink>
           </Link>
         </NavigationMenuItem>

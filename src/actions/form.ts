@@ -3,6 +3,7 @@
 import { CreatePostSchema, CreatePostSchemaType } from "@/schemas/form";
 import prisma from "@/lib/prismadb";
 import { GetUserOnly } from "./user";
+import { revalidatePath } from "next/cache";
 
 class UserNotFoundErr extends Error {}
 
@@ -57,15 +58,7 @@ export async function CreateForm(data: any) {
 }
 
 export async function GetForms() {
-  // const user = await GetUserOnly();
-  // if (!user) {
-  //   throw new UserNotFoundErr();
-  // }
-
   return await prisma.post.findMany({
-    // where: {
-    //   authorId: user.id,
-    // },
     orderBy: {
       createdAt: "desc",
     },
@@ -77,11 +70,6 @@ export async function GetForms() {
 }
 
 export async function GetFormById(id: string) {
-  // const user = await GetUserOnly();
-  // if (!user) {
-  //   throw new UserNotFoundErr();
-  // }
-
   await prisma.post.update({
     data: {
       visits: {
@@ -190,3 +178,70 @@ export async function GetFormWithSubmissions(id: string) {
     },
   });
 }
+
+export const GetAllFormsPagination = async ({
+  take,
+  skip,
+  search,
+}: {
+  take: any;
+  skip: any;
+  search?: string;
+}) => {
+  "use server";
+
+  const results = await prisma.post.findMany({
+    take,
+    skip,
+    where: {
+      OR: [
+        {
+          name: {
+            contains: search,
+            mode: "insensitive",
+          },
+        },
+        // {
+        //   tag: {
+        //     name: {
+        //       contains: search,
+        //       mode: "insensitive",
+        //     },
+        //   },
+        // },
+      ],
+    },
+
+    orderBy: {
+      createdAt: "asc",
+    },
+  });
+
+  // const results = await prisma.product.findMany({
+  //   take,
+  //   skip,
+  //   where: {
+  //     name: {
+  //       startsWith: search,
+  //     },
+  //   },
+  //   orderBy: {
+  //     createdAt: "asc",
+  //   },
+  //   include: {
+  //     tag: true,
+  //   },
+  // });
+
+  const total = await prisma.post.count();
+
+  revalidatePath("/");
+
+  return {
+    data: results,
+    metadata: {
+      hasNextPage: skip + take < total,
+      totalPages: Math.ceil(total / take),
+    },
+  };
+};

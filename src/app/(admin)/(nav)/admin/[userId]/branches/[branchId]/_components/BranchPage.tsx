@@ -10,6 +10,8 @@ import React, { useState } from "react";
 import { toast } from "sonner";
 import UploadDialogue from "./UploadDialogue";
 import UploadBannerDialogue from "./UploadBannerDialogue";
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
+import { Label } from "@/components/ui/label";
 
 const BranchPage = ({ branch }: { branch: BranchType }) => {
   const [imageUpload, setImageUpload] = useState(false);
@@ -62,7 +64,49 @@ const BranchPage = ({ branch }: { branch: BranchType }) => {
           </div>
         </div>
       </div>
+      {/* tabs */}
+      <Tabs defaultValue="Contact">
+        <TabsList className="flex justify-start bg-transparent gap-4">
+          <TabsTrigger
+            value="Contact"
+            className="flex rounded-none border-b  p-0  data-[state=active]:border-b-slate-50"
+          >
+            <div className="pt-6 pb-3">Contact</div>
+          </TabsTrigger>
+          <TabsTrigger
+            value="Posts"
+            className="flex rounded-none border-b  p-0  data-[state=active]:border-b-slate-50"
+          >
+            <div className=" pt-6 pb-3">Posts</div>
+          </TabsTrigger>
+        </TabsList>
+        <div className="pt-8">
+          <TabsContent value="Contact">
+            <Contact branch={branch} />
+          </TabsContent>
+          <TabsContent value="Posts">post</TabsContent>
+        </div>
+      </Tabs>
     </main>
+  );
+};
+
+const Contact = ({ branch }: { branch: BranchType }) => {
+  return (
+    <>
+      <div className="flex gap-2 items-center">
+        <Label>Email: </Label>
+        <h2 className="text-muted-foreground text-sm">{branch.email}</h2>
+      </div>
+      <div className="flex gap-2 items-center">
+        <Label>Mobile: </Label>
+        <h2 className="text-muted-foreground text-sm">{branch.phone}</h2>
+      </div>
+      <div className="flex gap-2 items-center">
+        <Label>Email: </Label>
+        <h2 className="text-muted-foreground text-sm">{branch.}</h2>
+      </div>
+    </>
   );
 };
 

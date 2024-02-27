@@ -55,7 +55,7 @@ export const CreateFormBtn: React.FC<props> = ({ categories }) => {
   const categoryType = form.watch("category");
 
   async function onSubmit(values: CreatePostSchemaType) {
-    values.category = "k";
+    // console.log(values);
     try {
       const formId = await CreateForm(values);
       toast.success("Post Created");

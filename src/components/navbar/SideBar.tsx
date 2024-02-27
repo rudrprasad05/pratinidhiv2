@@ -16,6 +16,7 @@ import {
   PanelsTopLeft,
   Split,
   Store,
+  Tag,
   User,
 } from "lucide-react";
 import Link from "next/link";
@@ -26,6 +27,8 @@ import { Card } from "../ui/card";
 import { Separator } from "../ui/separator";
 import { UserType } from "@/types";
 import { redirect } from "next/navigation";
+import EditProfileButton from "@/app/(admin)/(nav)/admin/[userId]/dashboard/_components/EditProfileButton";
+import EditProfileSheet from "../global/EditProfileSheet";
 
 type Items = {
   name: string;
@@ -51,6 +54,11 @@ const SideNav = ({ user }: { user: UserType | null }) => {
       name: "Users",
       icon: User,
       link: `/admin/${user.id}/users`,
+    },
+    {
+      name: "Tags",
+      icon: Tag,
+      link: `/admin/${user.id}/tags`,
     },
   ];
 
@@ -137,18 +145,14 @@ const SideNav = ({ user }: { user: UserType | null }) => {
           </div>
 
           <div className="w-min h-min hover:bg-accent hover:text-accent-foreground transition rounded-md">
-            <Link
-              className={cn(
-                "h-min w-min",
-                openNav && "flex gap-3 items-center"
-              )}
-              href={"/seller/settings"}
-            >
-              <div className="p-2">
-                <Cog className="stroke-primary h-6 w-6" />
-              </div>
-              <div>{openNav && "Settings"}</div>
-            </Link>
+            <EditProfileSheet>
+              <>
+                <div className="p-2">
+                  <Cog className="stroke-primary h-6 w-6" />
+                </div>
+                <div>{openNav && "Settings"}</div>
+              </>
+            </EditProfileSheet>
           </div>
         </div>
       </div>

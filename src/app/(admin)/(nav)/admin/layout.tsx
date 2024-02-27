@@ -4,11 +4,14 @@ import { UserType } from "@/types";
 import { redirect } from "next/navigation";
 import React from "react";
 
-const layout = ({
+const layout = async ({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) => {
+  const user = await GetUserOnly();
+  if (!user) redirect("/");
+  if (user.role == "USER") redirect("/");
   return (
     <main className="flex">
       <aside>
