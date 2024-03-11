@@ -1,5 +1,5 @@
 import { GetFormById, GetForms } from "@/actions/form";
-import PostPage from "../_components/PostPage";
+import PostPage from "../components/PostPage";
 
 async function page({ params }: { params: { id: string } }) {
   const { id } = params;

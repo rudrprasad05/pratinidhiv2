@@ -10,7 +10,7 @@
 // export default page;
 
 import React from "react";
-import { Feed } from "./_components/SiteProductFeed";
+import { Feed } from "./components/SiteProductFeed";
 
 export type PageProps = {
   params: { [key: string]: string | string[] | undefined };

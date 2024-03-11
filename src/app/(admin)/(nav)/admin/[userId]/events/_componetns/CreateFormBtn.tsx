@@ -2,7 +2,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CreatePostSchema, CreatePostSchemaType } from "@/schemas/form";
 import { useForm } from "react-hook-form";
-
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -24,7 +23,6 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { CreateForm } from "@/actions/form";
-
 import { useRouter } from "next/navigation";
 import {
   Select,
@@ -33,29 +31,74 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-
-import { FullCategoryType } from "@/types";
 import { toast } from "sonner";
-import { Loader2, Plus } from "lucide-react";
+import { Loader2, Plus, Upload, X } from "lucide-react";
+import { useState } from "react";
+import { useSession } from "next-auth/react";
+import { cn } from "@/lib/utils";
+import Image from "next/image";
+import { FullCategoryType } from "@/types";
 
-interface props {
+export const CreateFormBtn = ({
+  categories,
+}: {
   categories: FullCategoryType[];
-}
-
-export const CreateFormBtn: React.FC<props> = ({ categories }) => {
+}) => {
   const router = useRouter();
+  const [imageUpload, setImageUpload] = useState(false);
+  const [imageUrl, setImageUrl] = useState<string>("");
+  const [isImageInCloud, setIsImageInCloud] = useState(false);
+  const session = useSession();
+  const user = session.data?.user;
+
   const form = useForm<CreatePostSchemaType>({
     resolver: zodResolver(CreatePostSchema),
     defaultValues: {
       name: "",
       description: "",
+      previewImage: "",
     },
   });
 
   const categoryType = form.watch("category");
 
+  const handleImageUpload = async (file: File) => {
+    const salt = Date.now();
+    setImageUpload(true);
+    if (!file) return;
+
+    try {
+      let data = new FormData();
+      data.append("file", file, "image" + salt.toString() + "_" + user?.id);
+
+      const res = await fetch("/api/s3-upload", {
+        method: "POST",
+        body: data,
+      })
+        .then(() => {
+          setImageUpload(false);
+          setImageUrl(
+            `https://mctechfiji.s3.amazonaws.com/pratinidhi/${
+              "image" + salt.toString() + "_" + user?.id
+            }`
+          );
+          setIsImageInCloud(true);
+          toast("Image Uploaded to Cloud");
+        })
+        .catch((e) => {
+          toast("Something went wrong", { description: "Contact site admin" });
+        });
+      // handle the error
+    } catch (e: any) {
+      // Handle errors here
+      console.error(e);
+    }
+  };
+
   async function onSubmit(values: CreatePostSchemaType) {
     // console.log(values);
+    values.previewImage = imageUrl;
+
     try {
       const formId = await CreateForm(values);
       toast.success("Post Created");
@@ -141,9 +184,65 @@ export const CreateFormBtn: React.FC<props> = ({ categories }) => {
                 </FormItem>
               )}
             />
+            <div className="flex gap-3 my-6 items-center">
+              <label
+                htmlFor="file"
+                className={cn(
+                  "cursor-pointer",
+                  imageUpload && "opacity-50 cursor-not-allowed"
+                )}
+              >
+                <div
+                  className={cn(
+                    "items-center rounded-md p-2 bg-secondary text-secondary-foreground hover:bg-secondary/80 flex gap-3",
+                    isImageInCloud && "opacity-50 cursor-not-allowed"
+                  )}
+                >
+                  <Upload />
+                  <h2 className="text-sm">Upload Image</h2>
+                </div>
+                <input
+                  id="file"
+                  type="file"
+                  name="file"
+                  disabled={isImageInCloud}
+                  hidden
+                  onChange={(e) => {
+                    handleImageUpload(e.target.files?.[0] as File);
+                  }}
+                />
+              </label>
+
+              {imageUpload && (
+                <div>
+                  <Loader2 className="animate-spin" />
+                </div>
+              )}
+
+              {isImageInCloud && (
+                <div className="flex gap-2">
+                  <div className="relative aspect-square h-[50px]">
+                    <Image
+                      className="rounded-md h-full object-cover"
+                      src={imageUrl}
+                      alt="image"
+                      width={50}
+                      height={50}
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setImageUrl("")}
+                      className="p-[4px] absolute top-[-10px] right-[-10px] bg-rose-500 rounded-full"
+                    >
+                      <X className="w-3 h-3" />
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
           </form>
         </Form>
-        {/* <ProductForm /> */}
+
         <DialogFooter>
           <Button
             onClick={form.handleSubmit(onSubmit)}

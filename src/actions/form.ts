@@ -39,7 +39,7 @@ export async function CreateForm(data: any) {
     throw new UserNotFoundErr();
   }
 
-  const { name, description, category } = data;
+  const { name, description, category, previewImage } = data;
 
   const form = await prisma.post.create({
     data: {
@@ -47,6 +47,7 @@ export async function CreateForm(data: any) {
       name,
       description,
       tags: category,
+      previewImage,
     },
   });
 

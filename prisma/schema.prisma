@@ -96,6 +96,7 @@ model Post {
     createdAt       DateTime   @default(now())
     published       Boolean    @default(false)
     name            String
+    previewImage    String?
     description     String     @default("")
     content         String     @default("[]")
     visits          Int        @default(0)

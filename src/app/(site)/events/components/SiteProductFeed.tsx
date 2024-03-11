@@ -7,6 +7,7 @@ import { Pagination } from "./pagination";
 import { string } from "zod";
 import { SiteProductCard } from "./SiteProductCard";
 import { GetAllFormsPagination } from "@/actions/form";
+import SearchBar from "./SearchBar";
 // import SearchBar from "./SearchBar";
 // import SearchFilter from "./SearchFilter";
 
@@ -42,10 +43,10 @@ export const Feed = async (props: PageProps) => {
     <div className="h-full w-4/5 mx-auto pt-10 flex flex-col">
       <div className="flex pb-10 gap-3">
         <h1 className="items-center grow text-3xl text-primary font-bold ">
-          Products
+          Events
         </h1>
-        {/* <SearchBar defaultValue={search} />
-        <SearchFilter tags={tags} /> */}
+        <SearchBar defaultValue={search} />
+        {/* <SearchFilter tags={tags} /> */}
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
