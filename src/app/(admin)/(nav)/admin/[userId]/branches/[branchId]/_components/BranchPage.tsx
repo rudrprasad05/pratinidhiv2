@@ -104,7 +104,7 @@ const Contact = ({ branch }: { branch: BranchType }) => {
       </div>
       <div className="flex gap-2 items-center">
         <Label>Email: </Label>
-        <h2 className="text-muted-foreground text-sm">{branch.}</h2>
+        <h2 className="text-muted-foreground text-sm">{}</h2>
       </div>
     </>
   );

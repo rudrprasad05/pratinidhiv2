@@ -29,7 +29,6 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Box, KeyRound, Loader2, Upload, X } from "lucide-react";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -41,6 +40,7 @@ import { SendEmailInvite } from "@/actions/email";
 import { RegisterUser } from "@/actions/user";
 import { UserType } from "@/types";
 import { CreateBranch } from "@/actions/branch";
+import { Split } from "lucide-react";
 
 const NewWebsiteForm = z.object({
   branchName: z
@@ -96,7 +96,7 @@ const NewBranch = ({ admins }: { admins: UserType[] }) => {
         <div className="duration-100 group group-hover:border-primary border rounded-md shadow-sm h-48 relative bg-muted p-5 border-primary/20 hover:border-primary hover:cursor-pointer">
           <div className="font-light text-2xl text-primary">Branch</div>
           <div className="absolute bottom-5 right-5">
-            <Box className="group-hover:h-28 group-hover:w-28  duration-200  w-16 h-16 stroke group-hover:stroke-primary stroke-muted-foreground" />
+            <Split className="group-hover:h-28 group-hover:w-28  duration-200  w-16 h-16 stroke group-hover:stroke-primary stroke-muted-foreground" />
           </div>
           <div className=" text-muted-foreground">Create a new branch</div>
         </div>

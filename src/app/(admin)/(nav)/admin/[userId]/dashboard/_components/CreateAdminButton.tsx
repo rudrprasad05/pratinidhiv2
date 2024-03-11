@@ -16,7 +16,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { toast } from "sonner";
-import { Box } from "lucide-react";
+import { Shield } from "lucide-react";
 import { Input } from "@/components/ui/input";
 
 interface props {
@@ -68,7 +68,7 @@ const CreateAdminButton: React.FC<props> = ({ user }) => {
         <div className="duration-100 group group-hover:border-primary border rounded-md shadow-sm h-48 relative bg-muted p-5 border-primary/20 hover:border-primary hover:cursor-pointer">
           <div className="font-light text-2xl text-primary">Admin</div>
           <div className="absolute bottom-5 right-5">
-            <Box className="group-hover:h-28 group-hover:w-28  duration-200  w-16 h-16 stroke group-hover:stroke-primary stroke-muted-foreground" />
+            <Shield className="group-hover:h-28 group-hover:w-28  duration-200  w-16 h-16 stroke group-hover:stroke-primary stroke-muted-foreground" />
 
             {/* <IoPersonAddOutline className="group-hover:stroke-primary w-16 h-16 stroke stroke-muted-foreground" /> */}
           </div>

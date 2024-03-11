@@ -28,7 +28,7 @@ import {
 // } from "@/schemas/form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "@/components/ui/input";
-import { BookX, Box } from "lucide-react";
+import { Split } from "lucide-react";
 
 const CreateBranchButton = () => {
   const router = useRouter();
@@ -64,7 +64,7 @@ const CreateBranchButton = () => {
         <div className="duration-100 group group-hover:border-primary border rounded-md shadow-sm h-48 relative bg-muted p-5 border-primary/20 hover:border-primary hover:cursor-pointer">
           <div className="font-light text-2xl text-primary">Branch</div>
           <div className="absolute bottom-5 right-5">
-            <Box className="group-hover:h-28 group-hover:w-28  duration-200  w-16 h-16 stroke group-hover:stroke-primary stroke-muted-foreground" />
+            <Split className="group-hover:h-28 group-hover:w-28  duration-200  w-16 h-16 stroke group-hover:stroke-primary stroke-muted-foreground" />
 
             {/* <IoPersonAddOutline className="group-hover:stroke-primary w-16 h-16 stroke stroke-muted-foreground" /> */}
           </div>

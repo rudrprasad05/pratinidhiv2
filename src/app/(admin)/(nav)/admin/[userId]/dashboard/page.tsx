@@ -1,6 +1,6 @@
 import React from "react";
 import AdminCards from "./_components/AdminCards";
-import { Box } from "lucide-react";
+import { Calendar, MessageCircle, Shield, Split, Tag } from "lucide-react";
 import CreateAdminButton from "./_components/CreateAdminButton";
 import CreateBranchButton from "./_components/CreateBranchButton";
 import EditProfileButton from "./_components/EditProfileButton";
@@ -18,28 +18,28 @@ const page = ({ params }: PageSearchProps) => {
           <AdminCards
             href={`/admin/${params.userId}/events`}
             name="Events"
-            Icon={Box}
+            Icon={Calendar}
           />
           <AdminCards
             href={`/admin/${params.userId}/categories`}
             name="Categories"
-            Icon={Box}
+            Icon={Tag}
           />
           <AdminCards
             href={`/admin/${params.userId}/users`}
             name="Admin"
-            Icon={Box}
+            Icon={Shield}
           />
           <AdminCards
             href={`/admin/${params.userId}/comments`}
             name="Comments"
-            Icon={Box}
+            Icon={MessageCircle}
           />
 
           <AdminCards
             href={`/admin/${params.userId}/branches`}
             name="Branches"
-            Icon={Box}
+            Icon={Split}
           />
         </div>
       </div>
